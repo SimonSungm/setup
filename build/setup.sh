@@ -13,9 +13,10 @@ passwd -d cliff
 apt-get update && \
 	apt-get install -y \
 	git \
-	vim 
+	curl \
+	neovim
 
-sudo -u cliff ${PWD}/vim.sh
+sudo -u cliff ${PWD}/nvim.sh
 
 apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
