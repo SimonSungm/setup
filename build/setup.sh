@@ -13,10 +13,13 @@ passwd -d cliff
 apt-get update && \
 	apt-get install -y \
 	git \
-	curl \
-	neovim
+	zsh \
+	wget \
+	neovim \
+	curl
 
 sudo -u cliff ${PWD}/nvim.sh
+sudo -u cliff ${PWD}/omz.sh
 
 apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
