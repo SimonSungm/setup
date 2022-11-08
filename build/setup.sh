@@ -15,7 +15,6 @@ apt-get update && \
 	git \
 	zsh \
 	wget \
-	neovim \
 	curl
 
 sudo -u cliff ${PWD}/nvim.sh
