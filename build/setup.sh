@@ -3,6 +3,7 @@ export PWD=$(dirname $(realpath -s "$0"))
 
 set -e
 
+# Make sure sshd config DO NOT have "PermitEmptyPasswords yes"
 useradd -u 1000 -d /home/cliff -m -s /bin/bash cliff
 mkdir -p /home/cliff
 chown -R cliff:cliff /home/cliff
@@ -17,8 +18,8 @@ apt-get update && \
 	wget \
 	curl
 
-sudo -u cliff ${PWD}/nvim.sh
 sudo -u cliff ${PWD}/omz.sh
+sudo -u cliff ${PWD}/nvim.sh
 
 apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
