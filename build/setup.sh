@@ -1,5 +1,5 @@
 #!/bin/bash
-export PWD=$(dirname $(realpath -s "$0"))
+export CUR_DIR=$(dirname $(realpath -s "$0"))
 
 set -e
 
@@ -18,8 +18,9 @@ apt-get update && \
 	wget \
 	curl
 
-sudo -u cliff ${PWD}/omz.sh
-sudo -u cliff ${PWD}/nvim.sh
+sudo -u cliff ${CUR_DIR}/omz.sh
+sudo -u cliff ${CUR_DIR}/nvim.sh
+sudo -u cliff ${CUR_DIR}/utils.sh
 
 apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
