@@ -2,6 +2,9 @@
 
 set -e
 
+export CUR_DIR=$(dirname $(realpath -s "$0"))
+source ${CUR_DIR}/env.sh
+
 ### Build NeoVim ###
 echo "Build NeoVim Start"
 
