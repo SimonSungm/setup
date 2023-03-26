@@ -7,24 +7,33 @@ source ${CUR_DIR}/env.sh
 
 ### Build NeoVim ###
 echo "Build NeoVim Start"
+get_arch=`arch`
 
-VERSION=0.8
-BUILD_DIR=/tmp/build
-INSTALL_DIR=/usr
+if [[ $get_arch == "x86_64" ]]; then
+	pushd /tmp/
+	wget https://github.com/neovim/neovim/releases/download/v0.8.2/nvim-linux64.deb
+	sudo apt install ./nvim-linux64.deb
+	rm ./nvim-linux64.deb
+	popd
+else
+	VERSION=0.8
+	BUILD_DIR=/tmp/build
+	INSTALL_DIR=/usr
 
-mkdir -p ${BUILD_DIR}
-pushd ${BUILD_DIR}
+	mkdir -p ${BUILD_DIR}
+	pushd ${BUILD_DIR}
 
-sudo apt-get update && \
-  sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+	sudo apt-get update && \
+	  sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
 
-git clone -b release-${VERSION} https://github.com/neovim/neovim
+	git clone -b release-${VERSION} https://github.com/neovim/neovim
 
-cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}"
-sudo make -j$(nproc) install
-rm -rf ${BUILD_DIR}
+	cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}"
+	sudo make -j$(nproc) install
+	rm -rf ${BUILD_DIR}
 
-popd
+	popd
+fi
 
 ## For Uninstall
 # sudo cmake --build build/ --target uninstall
@@ -41,7 +50,7 @@ echo "Install LunarVim Start"
 
 sudo apt-get update && \
 	sudo apt-get install -y curl git make pip npm nodejs cargo python3
-LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
+LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/fc6873809934917b470bff1b072171879899a36b/utils/installer/install.sh) -y
 # bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
 
 echo "Install LunarVim Done"
@@ -55,6 +64,7 @@ echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc
 echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.zshrc
 echo 'alias vim=${HOME}/.local/bin/lvim' >> ${HOME}/.bashrc
 echo 'alias vim=${HOME}/.local/bin/lvim' >> ${HOME}/.zshrc
+git config --global core.editor lvim
 
 mkdir -p ${XDG_CONFIG_HOME}
 
