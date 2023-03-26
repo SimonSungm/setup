@@ -18,8 +18,10 @@ apt-get update && \
 	git \
 	zsh \
 	wget \
+	xz-utils \
 	curl
 
+sudo -u cliff ${CUR_DIR}/nodejs.sh
 sudo -u cliff ${CUR_DIR}/omz.sh
 sudo -u cliff ${CUR_DIR}/nvim.sh
 sudo -u cliff ${CUR_DIR}/utils.sh
